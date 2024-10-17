@@ -14,7 +14,6 @@ export default async function Auth(req,res,next) {
     }
     catch{
         req.user=null;
-        next();
-        
+        next();     
     }
 }  

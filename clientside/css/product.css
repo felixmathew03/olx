@@ -68,6 +68,7 @@ body {
 .prodimg {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     width: 15%;
     height: 350px;
     overflow-y: scroll;

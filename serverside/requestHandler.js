@@ -12,14 +12,12 @@ export async function getProducts(req,res) {
         if (req.user!==null) {
             const _id = req.user.userId;
             const user = await userSchema.findOne({_id});
-            console.log(_id);
             const products1=await productSchema.find({sellerId:{$ne:_id}});
-            return res.status(200).send({products1,profile:user.profile,id:_id})
+            const wlist=await listSchema.find({buyerId:_id});
+            return res.status(200).send({products1,profile:user.profile,id:_id,wlist})
         }else{
             return res.status(403).send({products,msg:"Login for better user experience"})
-        }
-        
-        
+        }   
     } catch (error) {
         res.status(404).send({msg:"error"})
     }
@@ -57,11 +55,9 @@ export async function signUp(req,res) {
             userSchema
             .create({email,username,password:hashedPassword,place,profile,address,phone,pincode})
             .then(()=>{
-                console.log("success");
                 return res.status(201).send({msg:"successs"})
             })
             .catch((error)=>{
-                console.log("faliure");
                 return res.status(404).send({msg:"not registered"})
             })
         })
@@ -104,16 +100,12 @@ export async function addProduct(req,res) {
         const {pname,price,category,description,sellerId,images} = req.body;
         if(!(pname&&price&&category&&description&&sellerId&&images))
             return res.status(404).send({msg:"fields are empty"})
-        console.log("hai");
-        
         productSchema
             .create({pname,price,category,description,sellerId,images})
             .then(()=>{
-                console.log("success");
                 return res.status(201).send({msg:"successs"})
             })
             .catch((error)=>{
-                console.log("faliure");
                 return res.status(404).send({msg:"product not added"})
             })
     } catch (error) {
@@ -159,14 +151,22 @@ export async function addWish(req,res) {
         listSchema
             .create({...wishlist})
             .then(()=>{
-                console.log("success");
                 return res.status(201).send({msg:"successs"})
             })
             .catch((error)=>{
-                console.log("faliure");
                 return res.status(404).send({msg:"list not added"})
             })
     } catch (error) {
         res.status(404).send(error);
     }
+}
+export async function deleteWish(req,res) {
+    try {
+        const {id}=req.params;
+        const result=await listSchema.deleteOne({"product._id":id})
+        console.log(result);
+        return res.status(201).send({msg:"deleted"});
+    } catch (error) {
+        return res.status(404).send(error)
+    }  
 }

@@ -14,15 +14,16 @@ document.getElementById("addp").addEventListener("submit",async(e)=>{
         method:"POST",
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify({pname,price,category,description,sellerId,images})
-    }).then((res)=>{
+    }).then(async (res)=>{
         console.log(res);
+        const result= await res.json();
         if(res.status==201){
-            alert("success")
+            alert(result.msg)
             console.log(res);  
             window.location.href="../index.html"
         }
         else if (res.status==404){
-            alert("error")
+            alert(result.msg)
         }
         else{
             alert("error")

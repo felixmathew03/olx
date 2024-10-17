@@ -15,5 +15,6 @@ router.route("/getsproducts/:id").get(prod.getSProducts);
 router.route("/getproduct/:_id").get(prod.getProduct);
 router.route("/editproduct/:_id").put(prod.editProduct);
 router.route("/addwish").post(prod.addWish);
+router.route("/deletewlist/:id").delete(prod.deleteWish);
 
 export default router;

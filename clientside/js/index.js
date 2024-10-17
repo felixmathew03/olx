@@ -2,10 +2,11 @@ const value = localStorage.getItem("Auth");
 let profileImage;
 let dropdownMenu;
 let buyerId;
+let result;
 async function getProducts() {
     const res=await fetch("http://localhost:3000/api/getproducts",{headers:{
     "Authorization" : `Bearer ${value}`}})
-    const result=await res.json();
+    result=await res.json();
     str=``;
     if(res.status==200){
         buyerId=result.id;
@@ -38,10 +39,12 @@ async function getProducts() {
                 </a>
                 <img src="./images/favorite_24dp_000000_FILL0_wght400_GRAD0_opsz24.png" alt="" class="image" onclick="wish('${product._id}')" id="${product._id}">
             </div>
-            `
+            `           
         })
-        document.getElementById("products").innerHTML=str;
-        
+        document.getElementById("products").innerHTML=str;  
+        result.wlist.map((l)=>{
+            document.getElementById(`${l.product._id}`).src="./images/favorite_24dp_EA3323_FILL1_wght400_GRAD0_opsz24.png"
+        })
     }
     else if(res.status==403){
         result.products.map((product)=>{
@@ -81,7 +84,7 @@ function popup() {
 async function wish(e){
     a=document.getElementById(`${e}`).src==="http://localhost:3000/images/favorite_24dp_000000_FILL0_wght400_GRAD0_opsz24.png"?"./images/favorite_24dp_EA3323_FILL1_wght400_GRAD0_opsz24.png":"./images/favorite_24dp_000000_FILL0_wght400_GRAD0_opsz24.png"; 
     document.getElementById(`${e}`).src=a;
-    if (a!=="http://localhost:3000/images/favorite_24dp_000000_FILL0_wght400_GRAD0_opsz24.png") {
+    if (a!="./images/favorite_24dp_000000_FILL0_wght400_GRAD0_opsz24.png") {
         const res=await fetch(`http://localhost:3000/api/getproduct/${e}`);
         const product=await res.json();
         fetch("http://localhost:3000/api/addwish",{
@@ -90,7 +93,7 @@ async function wish(e){
             body:JSON.stringify({buyerId,product})
         }).then((res)=>{
             if(res.status==201){
-                alert("success")
+                alert("Added to wishlist")
             }
             else if (res.status==404){
                 alert("error")
@@ -103,6 +106,20 @@ async function wish(e){
             console.log(error);
             
         });
+    }else{
+        fetch(`http://localhost:3000/api/deletewlist/${e}`,{
+            method:"DELETE",
+            headers:{"Content-Type":"application/json"}
+          }).then((res)=>{
+                if(res.status==201){
+                    alert("Removed from wishlist")
+                }else{
+                    alert("error");
+                }
+            }). catch ((error)=>{
+                console.log(error);
+                
+            })
     }
 }
 // Close dropdown if clicked outside
@@ -114,10 +131,8 @@ window.addEventListener('click', (event) => {
 
 document.getElementById("filter").addEventListener('keyup',async(e)=>{
     try {
-        const res=await fetch(`http://localhost:3000/api/getproductss`);
-        const products=await res.json();
         str=``;
-        products.filter((i)=>i.pname.toLowerCase().includes(e.target.value.toLowerCase())).map((product)=>{
+        result.products.filter((i)=>i.pname.toLowerCase().includes(e.target.value.toLowerCase())).map((product)=>{
             str+=`
             <div class="product">
                 <a href="./pages/product.html?id=${product._id}">
@@ -137,10 +152,8 @@ document.getElementById("filter").addEventListener('keyup',async(e)=>{
 })
 async function search(e) {
     try {
-        const res=await fetch(`http://localhost:3000/api/getproductss`);
-        const products=await res.json();
         str=``;
-        products.filter((i)=>i.pname.toLowerCase().includes(e.value.toLowerCase())).map((product)=>{
+        result.products1.filter((i)=>i.pname.toLowerCase().includes(e.value.toLowerCase())).map((product)=>{
             str+=`
             <div class="product">
                 <a href="./pages/product.html?id=${product._id}">
