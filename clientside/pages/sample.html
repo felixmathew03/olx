@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center; /* Centers the container horizontally */
+        }
+        .product-list {
+            display: flex;
+            flex-direction: column; /* Stacks items vertically */
+            align-items: center; /* Centers items */
+            gap: 20px; /* Adds space between cards */
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 650px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h1 {
+            font-size: 1.5em;
+            color: #333;
+            margin: 10px 0;
+        }
+        .buyer-name {
+            font-size: 1em;
+            color: #666;
+            margin: 10px 0;
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+        .button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #ff1a1a;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="product-list">
+        <div class="container">
+            <h1>Awesome Gadget</h1>
+            <p class="buyer-name">Buyer: John Doe</p>
+            <div class="button-container">
+                <button class="button">Sold Out</button>
+            </div>
+        </div>
+
+        <div class="container">
+            <h1>Smartphone Pro</h1>
+            <p class="buyer-name">Buyer: Alice Smith</p>
+            <div class="button-container">
+                <button class="button">Sold Out</button>
+            </div>
+        </div>
+
+        <div class="container">
+            <h1>Wireless Headphones</h1>
+            <p class="buyer-name">Buyer: Mark Johnson</p>
+            <div class="button-container">
+                <button class="button">Sold Out</button>
+            </div>
+        </div>
+
+        <div class="container">
+            <h1>Smartwatch</h1>
+            <p class="buyer-name">Buyer: Sarah Lee</p>
+            <div class="button-container">
+                <button class="button">Sold Out</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
