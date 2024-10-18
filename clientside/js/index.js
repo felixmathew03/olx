@@ -56,7 +56,6 @@ async function getProducts() {
                     <h1 >₹${product.price}</h1>
                     <p>${product.category.toUpperCase()}</p>
                 </a>
-                
             </div>
             `
         })
@@ -161,12 +160,15 @@ async function search(e) {
                     <h3>${product.pname.substring(0,16)}</h3>
                     <h1 >₹${product.price}</h1>
                     <p>${product.category.toUpperCase()}</p>
+                    <img src="./images/favorite_24dp_000000_FILL0_wght400_GRAD0_opsz24.png" alt="" class="image" onclick="wish('${product._id}')" id="${product._id}">
                 </a>
             </div>
         `
         })
-
         document.getElementById("products").innerHTML=str;
+        result.wlist.map((l)=>{
+            document.getElementById(`${l.product._id}`).src="./images/favorite_24dp_EA3323_FILL1_wght400_GRAD0_opsz24.png"
+        })
     } catch (error) {
         console.log(error);
     }

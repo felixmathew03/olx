@@ -3,30 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Signup</title>
+    <title>Sign In</title>
     <link rel="stylesheet" href="../css/signin.css">
 </head>
 <body>
-    <div class="cos">
-
-    
     <div class="container">
-        <h1>Sign In</h1>
+        <h2>Sign in</h2>
         <form id="signin">
-            <div class="form-group">
+            <div class="input-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" >
+                <input type="email" id="email" name="email" required>
             </div>
-            <div class="form-group">
+            <div class="input-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" >
+                <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit" class="btn">Sign In</button>
-
+            <p class="redirect"> <a href="./forgetpass.html">Forget Password?</a></p>
+            <button type="submit">Sign in</button>
+            <p class="redirect">Don't have an account? <a href="./signup.html">Sign up</a></p>
         </form>
-        <p class="login-link"> <br> <a href="./signup.html">Sign Up</a></p> <br>
+        <div class="footer">
+            <p>© 2024 NOVAVI</p>
+        </div>
     </div>
-</div>
-<script src="../js/signin.js"></script>
+    <script src="../js/signin.js"></script>
 </body>
 </html>
