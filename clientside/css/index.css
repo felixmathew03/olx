@@ -159,3 +159,7 @@
 #hover:hover{
     cursor: pointer;
 }
+.booking{
+    color: green;
+    font-weight: 600;
+}

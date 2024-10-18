@@ -249,3 +249,54 @@ export async function booking(req,res) {
         res.status(404).send({msg:"error"})
     }
 }
+
+export async function getUBookings(req,res) {
+    try {
+        const {buyerId}=req.params;
+        const bookings=await bookingSchema.find({buyerId});
+        res.status(200).send(bookings);
+    } catch (error) {
+        res.status(404).send(error)
+    }
+}
+
+export async function deleteAccount(req,res) {
+    const {_id}=req.params;
+    const otp=Math.floor(Math.random()*1000000);
+    const update=await userSchema.updateOne({_id},{$set:{otp:otp}})
+    console.log(update);
+    
+     // send mail with defined transport object
+    // const info = await transporter.sendMail({
+    //     from: '"Maddison Foo Koch 👻" <maddison53@ethereal.email>', // sender address
+    //     to: "bar@example.com, baz@example.com", // list of receivers
+    //     subject: "OTP", // Subject line
+    //     text: "your otp", // plain text body
+    //     html: `<h1>${otp}</h1>`, // html body
+    // });
+
+    // console.log("Message sent: %s", info.messageId);
+    // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
+    console.log(otp);
+    return res.status(201).send({_id}); 
+}
+
+export async function accountOTP(req,res) {
+    try {
+        console.log("Hai");
+        const {_id,otp}=req.body;
+        console.log(_id,otp);
+        
+        const check=await userSchema.findOne({$and:[{_id:_id},{otp:otp}]})
+        console.log(check);
+        
+        if(!check)
+            return res.status(403).send({msg:"Otp does not match"})
+        const result=await userSchema.deleteOne({email:check.email})
+        console.log(result);
+        
+        return res.status(201).send({msg:"Your account is deleted"});
+    } catch (error) {
+        return res.status(404).send({msg:error})
+    }  
+}

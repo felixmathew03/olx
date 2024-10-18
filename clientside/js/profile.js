@@ -38,9 +38,22 @@ async function getSProducts() {
 getSProducts();
 function logout() {
     localStorage.removeItem("Auth");
-    window.location.href="../pages/signin.html"
+    window.location.href="../index.html"
 }
 
+async function deleteAccount() {
+    const res=await fetch(`http://localhost:3000/api/deleteaccount/${id}`,{
+        method:"POST",
+        headers:{"Content-Type":"application/json"}
+    });
+    const result=await res.json();
+    if(res.status==201){
+        localStorage.setItem("id",`${result._id}`);
+        window.location.href="../pages/deleteAcc.html";
+    }else{
+        alert(result.msg)
+    }
+}
 document.getElementById("search").addEventListener('keyup',async(e)=>{
     try {
         const res=await fetch(`http://localhost:3000/api/getsproducts/${id}`);
