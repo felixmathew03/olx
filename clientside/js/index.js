@@ -49,7 +49,10 @@ async function getProducts() {
         })
         const res1=await fetch(`http://localhost:3000/api/getubookings/${result.id}`);
         bookings=await res1.json();
+        console.log(bookings);
+        
         bookings.map((booking)=>{
+            console.log("hai");
             document.getElementById(`b${booking.product._id}`).innerText="BOOKED"
         })
     }

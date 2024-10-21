@@ -35,10 +35,15 @@ function change(a) {
     document.getElementById("image").src=a;
 }
 async function book() {
+    const currentDate = new Date();
+    const date=String(currentDate.getDate()).padStart(2, '0')+"-"+String(currentDate.getMonth() + 1).padStart(2, '0')+"-"+currentDate.getFullYear();
+console.log(date);
+
+
         fetch("http://localhost:3000/api/setBooking",{
             method:"POST",
             headers:{"Content-Type":"application/json","Authorization" : `Bearer ${value}`},
-            body:JSON.stringify({product})
+            body:JSON.stringify({product,date})
         }).then(async (res)=>{
             const result= await res.json();
             if(res.status==201){

@@ -233,20 +233,21 @@ export async function resetPassword(req,res) {
 export async function booking(req,res) {
     try {
         if (req.user!==null) {
-            const buyerId = req.user.userId;
-            const {product} = req.body;
-            bookingSchema.create({buyerId,sellerId:product.sellerId,product})
+            const _id = req.user.userId;
+            const {product,date} = req.body;
+            const buyer=await userSchema.findOne({_id},{username:1,place:1,phone:1});
+            bookingSchema.create({sellerId:product.sellerId,buyerId:_id,date,buyer,product})
             .then(()=>{
-                return res.status(201).send({msg:"Booking Successfull"})
+                return res.status(201).send({msg:"Booking Successfull"});
             })
             .catch((error)=>{
-                return res.status(404).send({msg:"product not added"})
+                return res.status(404).send({msg:"product not added"});
             })
         }else{
-            return res.status(403).send({products,msg:"Something went wrong"})
+            return res.status(403).send({products,msg:"Something went wrong"});
         }   
     } catch (error) {
-        res.status(404).send({msg:"error"})
+        res.status(404).send({msg:"error"});
     }
 }
 
@@ -311,15 +312,13 @@ export async function getSBookings(req,res) {
     }
 }
 
-export async function getBuyer(req,res) {
+export async function deleteBooking(req,res) {
     try {
-        const {id}=req.params;
-        console.log(id);
-        
-        const data=await userSchema.findOne({_id:id},{username:1,place:1,phone:1});
-        console.log(data);
-        res.status(200).send(data);
+        const {_id}=req.body;
+        console.log(_id);
+        const result=await bookingSchema.deleteOne({_id})
+        return res.status(201).send({msg:"Booking deleted"});
     } catch (error) {
-        res.status(404).send(error)
-    }
+        return res.status(404).send({msg:error})
+    }  
 }

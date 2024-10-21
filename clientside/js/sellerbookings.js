@@ -6,23 +6,40 @@ async function getSBookings() {
     bookings=await res.json();
     str=``;
     bookings.map((booking)=>{
-        console.log(booking);
-        
-        fetch(`http://localhost:3000/api/getbuyer/${booking.buyerId}`).then(async(res1)=>{
-            const user=await res1.json();
-            console.log(user);
             str+=`
-            <div class="container">
-            <h1>${booking.product.pname}</h1>
-            <p class="buyer-name">Buyer: ${user.username}</p>
-            <div class="button-container">
-            <button class="button">Sold Out</button>
-            </div>
-            </div>`
-        })
-        console.log(str);
+            <tr>
+                    <td><img src="${booking.product.images[0]}" alt="${booking.product.pname}" class="product-image"></td>
+                    <td>${booking.product.pname}</td>
+                    <td>${booking.buyer.username}</td>
+                    <td>${booking.buyer.phone}</td>
+                    <td>${booking.product.category}</td>
+                    <td>
+                        <button class="button" onclick="deleteBooking('${booking._id}')">Delete</button>
+                    </td>
+                </tr>
+            `
     })
     
-    document.getElementById("bookings").innerHTML=str;
+    document.getElementById("tbody").innerHTML=str;
 }
 getSBookings();
+
+async function deleteBooking(_id) {
+    console.log(_id);
+    
+    fetch(`http://localhost:3000/api/deletebooking`,{
+        method:"DELETE",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({_id})
+      }).then(async(res)=>{
+            const result=await res.json();
+            if(res.status==201){
+                alert(result.msg);
+            }else{
+                alert("error");
+            }
+        }). catch ((error)=>{
+            console.log(error);
+            
+        })
+}

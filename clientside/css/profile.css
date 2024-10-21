@@ -100,6 +100,10 @@
     justify-content: space-around;
     align-items: center;
 }
+.navbar a{
+    text-decoration: none;
+    color: white;
+}
 .search{
     display: flex;
     align-items: center;
@@ -143,7 +147,7 @@
 .bookings button{
     width: 150px;
     height: 35px;
-    background-color: #28a745;
+    background-color: #045617;
     border: none;
     color: white;
     border-radius: 4px;
