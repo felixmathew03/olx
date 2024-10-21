@@ -300,3 +300,26 @@ export async function accountOTP(req,res) {
         return res.status(404).send({msg:error})
     }  
 }
+
+export async function getSBookings(req,res) {
+    try {
+        const {sellerId}=req.params;
+        const bookings=await bookingSchema.find({sellerId});
+        res.status(200).send(bookings);
+    } catch (error) {
+        res.status(404).send(error)
+    }
+}
+
+export async function getBuyer(req,res) {
+    try {
+        const {id}=req.params;
+        console.log(id);
+        
+        const data=await userSchema.findOne({_id:id},{username:1,place:1,phone:1});
+        console.log(data);
+        res.status(200).send(data);
+    } catch (error) {
+        res.status(404).send(error)
+    }
+}

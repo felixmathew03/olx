@@ -8,8 +8,8 @@ router.route("/getproducts").get(Auth,prod.getProducts);
 router.route("/getproductss").get(prod.getProductss);
 router.route("/signup").post(prod.signUp);
 router.route("/signin").post(prod.signIn);
-router.route("/getuser/:id").get(prod.getUser)
-router.route("/edituser/:_id").put(prod.editUser)
+router.route("/getuser/:id").get(prod.getUser);
+router.route("/edituser/:_id").put(prod.editUser);
 router.route("/addproduct").post(prod.addProduct);
 router.route("/getsproducts/:id").get(prod.getSProducts);
 router.route("/getproduct/:_id").get(prod.getProduct);
@@ -23,5 +23,7 @@ router.route("/setBooking").post(Auth,prod.booking);
 router.route("/getubookings/:buyerId").get(prod.getUBookings);
 router.route("/deleteaccount/:_id").post(prod.deleteAccount);
 router.route("/accountotp").delete(prod.accountOTP);
+router.route("/getsbookings/:sellerId").get(prod.getSBookings);
+router.route("/getbuyer/:id").get(prod.getBuyer)
 
 export default router;

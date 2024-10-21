@@ -12,7 +12,8 @@ async function getUser() {
     document.getElementById("address").textContent=user.address;
     document.getElementById("pincode").textContent=user.pincode;
     document.getElementById("phone").textContent=user.phone;
-    document.getElementById("edit").innerHTML=`<a href="../pages/edit.html?id=${user._id}"><img src="../images/edit.png" alt=""></a>`
+    document.getElementById("edit").innerHTML=`<a href="../pages/edit.html?id=${user._id}"><img src="../images/edit.png" alt=""></a>`;
+    document.getElementById("bookings").innerHTML=`<a href="../pages/sellerbookings.html?id=${user._id}">bookings</a>`;
 }
 getUser();
 
