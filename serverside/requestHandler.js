@@ -45,8 +45,9 @@ export async function getProductss(req,res) {
 export async function getUser(req,res) {
     try {
         const {id}=req.params;
-        const data=await userSchema.findOne({_id:id});
-        res.status(200).send(data);
+        const user=await userSchema.findOne({_id:id});
+        const count=await bookingSchema.countDocuments({sellerId:id});
+        res.status(200).send({user,count});
     } catch (error) {
         res.status(404).send(error)
     }
@@ -321,4 +322,14 @@ export async function deleteBooking(req,res) {
     } catch (error) {
         return res.status(404).send({msg:error})
     }  
+}
+
+export async function getOrders(req,res) {
+    try {
+        const {buyerId}=req.params;
+        const orders=await bookingSchema.find({buyerId});
+        res.status(200).send(orders);
+    } catch (error) {
+        res.status(404).send(error)
+    }
 }

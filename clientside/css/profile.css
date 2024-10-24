@@ -169,13 +169,22 @@
 .product img{
     display: block;
     height: 150px;
-    width: 200px;
+    min-width: 200px;
     object-fit: cover;
 }
-.product a{
+.bookings a{
     text-decoration: none;
-    color: black;
+    color: white;
 }
 .product h1{
     color: rgb(2, 71, 2);
+}
+#products a{
+    text-decoration: none;
+    color: black;
+}
+
+#count{
+    font-weight: 600;
+    font-size: 15px;
 }

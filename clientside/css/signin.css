@@ -10,7 +10,7 @@ body {
 }
 .container {
     background-color: #ffffff; /* White for the form background */
-    padding: 30px;
+    padding: 2%;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     width: 350px;
