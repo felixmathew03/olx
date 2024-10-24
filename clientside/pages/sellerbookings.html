@@ -39,7 +39,7 @@
         tr:hover {
             background-color: #e2e6ea; /* Highlight row on hover */
         }
-        .button {
+        .button1,.button2 {
             background-color: #ff4d4d;
             color: white;
             border: none;
@@ -48,7 +48,13 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-        .button:hover {
+        .button1{
+            background-color: #4bc966;
+        }
+        .button1:hover {
+            background-color: #329d49;
+        }
+        .button2:hover {
             background-color: #ff1a1a;
         }
         .product-image {
@@ -66,10 +72,10 @@
                 <tr>
                     <th>Image</th>
                     <th>Product Name</th>
+                    <th>Category</th>
+                    <th style="text-align: center;">Action</th>
                     <th>Buyer Name</th>
                     <th>Buyer Phone</th>
-                    <th>Category</th>
-                    <th>Action</th>
                 </tr>
             </thead>
             <tbody id="tbody">

@@ -46,8 +46,7 @@ export async function getUser(req,res) {
     try {
         const {id}=req.params;
         const user=await userSchema.findOne({_id:id});
-        const count=await bookingSchema.countDocuments({sellerId:id});
-        res.status(200).send({user,count});
+        res.status(200).send(user);
     } catch (error) {
         res.status(404).send(error)
     }
@@ -129,7 +128,8 @@ export async function getSProducts(req,res) {
     try {
         const {id}=req.params;
         const products=await productSchema.find({sellerId:id});
-        res.status(200).send(products);
+        const count=await bookingSchema.countDocuments({sellerId:id});
+        res.status(200).send({products,count});
     } catch (error) {
         res.status(404).send(error)
     }
@@ -294,9 +294,11 @@ export async function accountOTP(req,res) {
         
         if(!check)
             return res.status(403).send({msg:"Otp does not match"})
-        const result=await userSchema.deleteOne({email:check.email})
-        console.log(result);
-        
+        const result1=await bookingSchema.deleteOne({buyerId:check._id})
+        const result5=await bookingSchema.deleteOne({sellerId:check._id})
+        const result2=await listSchema.deleteOne({buyerId:check._id})
+        const result3=await productSchema.deleteOne({sellerId:check._id})
+        const result4=await userSchema.deleteOne({email:check.email})
         return res.status(201).send({msg:"Your account is deleted"});
     } catch (error) {
         return res.status(404).send({msg:error})
@@ -313,12 +315,25 @@ export async function getSBookings(req,res) {
     }
 }
 
-export async function deleteBooking(req,res) {
+export async function acceptBooking(req,res) {
+    try {
+        const {_id}=req.body;
+        console.log(_id);
+        const result=await productSchema.deleteOne({_id})
+        console.log(result);
+        
+        return res.status(201).send({msg:"Booking accepted"});
+    } catch (error) {
+        return res.status(404).send({msg:error})
+    }  
+}
+
+export async function declineBooking(req,res) {
     try {
         const {_id}=req.body;
         console.log(_id);
         const result=await bookingSchema.deleteOne({_id})
-        return res.status(201).send({msg:"Booking deleted"});
+        return res.status(201).send({msg:"Booking declined"});
     } catch (error) {
         return res.status(404).send({msg:error})
     }  

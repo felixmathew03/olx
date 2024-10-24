@@ -24,7 +24,8 @@ router.route("/getubookings/:buyerId").get(prod.getUBookings);
 router.route("/deleteaccount/:_id").post(prod.deleteAccount);
 router.route("/accountotp").delete(prod.accountOTP);
 router.route("/getsbookings/:sellerId").get(prod.getSBookings);
-router.route("/deletebooking").delete(prod.deleteBooking);
+router.route("/declinebooking").delete(prod.declineBooking);
+router.route("/acceptbooking").delete(prod.acceptBooking);
 router.route("/getorders/:buyerId").get(prod.getOrders);
 
 export default router;
